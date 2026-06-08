@@ -8,8 +8,12 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { Stack, useRouter } from "expo-router";
 
+import { useState } from "react";
+import QRCode from "react-native-qrcode-svg";
+
 export default function NotificationPage() {
   const router = useRouter();
+  const [showQrModal, setShowQrModal] = useState(false);
 
   return (
     <>
@@ -43,7 +47,10 @@ export default function NotificationPage() {
                 <Text style={styles.cardSub}>Pembelian berhasil</Text>
               </View>
 
-              <Ionicons name="chevron-forward" size={20} color="#fff" />
+              <TouchableOpacity onPress={() => setShowQrModal(true)}>
+                <Ionicons name="chevron-forward" size={20} color="#fff" />
+              </TouchableOpacity>
+              
             </View>
           ))}
 
@@ -63,7 +70,9 @@ export default function NotificationPage() {
                 <Text style={styles.cardSub}>Pembelian berhasil</Text>
               </View>
 
-              <Ionicons name="chevron-forward" size={20} color="#fff" />
+              <TouchableOpacity onPress={() => setShowQrModal(true)}>
+                <Ionicons name="chevron-forward" size={20} color="#fff" />
+              </TouchableOpacity>
             </View>
           ))}
 
@@ -74,6 +83,27 @@ export default function NotificationPage() {
         <TouchableOpacity style={styles.fab}>
           <Ionicons name="add" size={24} color="#fff" />
         </TouchableOpacity>
+
+        {showQrModal && (
+          <View style={styles.modalOverlay}>
+            <View style={styles.modalCard}>
+              <Text style={styles.modalTitle}>Lacak Barang</Text>
+
+              <QRCode value="GRSAPP-TRACKING-001" size={180} />
+
+              <Text style={styles.modalDesc}>
+                Scan QR Code untuk melihat status pengiriman barang.
+              </Text>
+
+              <TouchableOpacity
+                style={styles.closeBtn}
+                onPress={() => setShowQrModal(false)}
+              >
+                <Text style={styles.closeText}>Tutup</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
       </View>
     </>
   );
@@ -158,5 +188,52 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 5,
     elevation: 5
+  },
+
+  modalOverlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 20
+  },
+
+  modalCard: {
+    backgroundColor: "#fff",
+    width: "100%",
+    borderRadius: 20,
+    padding: 25,
+    alignItems: "center"
+  },
+
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: "700",
+    marginBottom: 20
+  },
+
+  modalDesc: {
+    textAlign: "center",
+    marginTop: 20,
+    color: "#666",
+    fontSize: 13,
+    lineHeight: 20
+  },
+
+  closeBtn: {
+    marginTop: 25,
+    backgroundColor: "#4CAF50",
+    paddingHorizontal: 30,
+    paddingVertical: 12,
+    borderRadius: 12
+  },
+
+  closeText: {
+    color: "#fff",
+    fontWeight: "600"
   }
 });

@@ -25,7 +25,8 @@ export default function Home() {
 
           <TouchableOpacity
             style={styles.bell}
-            onPress={() => router.push("/(function)/notif")}>
+            onPress={() => router.push("/(function)/notif")}
+          >
             <Ionicons name="notifications-outline" size={18} color="#4CAF50" />
           </TouchableOpacity>
         </View>
@@ -87,21 +88,28 @@ export default function Home() {
           <Text style={styles.tab}>Populer</Text>
         </View>
 
-        {/* PRODUK */}
-        <View style={styles.products}>
-          {[1, 2, 3].map((_, i) => (
+        {/* PRODUK LIST */}
+        <View style={styles.productGrid}>
+          {[...Array(6)].map((_, i) => (
             <TouchableOpacity
               key={i}
               style={styles.card}
-              onPress={() => router.push("/detail" as any)}
+              onPress={() => router.push("/(function)/detail")}
             >
               <Image
                 source={require("../../assets/images/sample-produk1.png")}
-                style={styles.productImage}
+                style={styles.cardImage}
               />
 
-              <Text style={styles.productName}>Jeruk 1kg</Text>
+              <Text style={styles.cardTitle}>Jeruk 1 Kg</Text>
               <Text style={styles.price}>Rp 10.000</Text>
+
+              <TouchableOpacity
+                style={styles.buyBtn}
+                onPress={() => router.push("/(function)/detail")}
+              >
+                <Text style={styles.buyText}>Beli</Text>
+              </TouchableOpacity>
             </TouchableOpacity>
           ))}
         </View>
@@ -217,7 +225,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 14,
     fontWeight: "600",
-    marginTop: 45,
+    marginTop: 45
   },
 
   seeAll: {
@@ -293,8 +301,41 @@ const styles = StyleSheet.create({
   },
 
   price: {
+    marginTop: 10,
     fontSize: 12,
     color: "#4CAF50",
     fontWeight: "600"
+  },
+
+  productGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    paddingHorizontal: 0,
+    marginTop: 40,
+  },
+
+  cardImage: {
+    width: "100%",
+    height: 80,
+    borderRadius: 10
+  },
+
+  cardTitle: {
+    marginTop: 5,
+    fontSize: 12
+  },
+
+  buyBtn: {
+    marginTop: 5,
+    backgroundColor: "#4CAF50",
+    borderRadius: 5,
+    paddingVertical: 5,
+    alignItems: "center"
+  },
+
+  buyText: {
+    color: "#fff",
+    fontSize: 12
   }
 });

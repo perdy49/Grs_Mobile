@@ -4,7 +4,8 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Image
+  Image,
+  Modal,
 } from "react-native";
 import { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
@@ -13,6 +14,17 @@ import { router, Stack } from "expo-router";
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+
+  const [successVisible, setSuccessVisible] = useState(false);
+
+  const handleRegister = () => {
+    setSuccessVisible(true);
+
+    setTimeout(() => {
+      setSuccessVisible(false);
+      router.replace("/login");
+    }, 2500);
+  };
 
   return (
     <>
@@ -68,7 +80,7 @@ export default function Register() {
             </TouchableOpacity>
           </View>
 
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={handleRegister}>
             <Text style={styles.buttonText}>Sign Up</Text>
           </TouchableOpacity>
 
@@ -79,6 +91,27 @@ export default function Register() {
             </Text>
           </Text>
         </View>
+
+        <Modal transparent visible={successVisible} animationType="fade">
+          <View style={styles.modalOverlay}>
+            <View style={styles.successCard}>
+              <View style={styles.iconContainer}>
+                <Ionicons name="checkmark-circle" size={80} color="#4CAF7A" />
+              </View>
+
+              <Text style={styles.successTitle}>Registrasi Berhasil!</Text>
+
+              <Text style={styles.successMessage}>
+                Akun GrsApp kamu berhasil dibuat. Silakan login untuk mulai
+                berbelanja buah dan sayur segar.
+              </Text>
+
+              <Text style={styles.redirectText}>
+                Mengarahkan ke halaman login...
+              </Text>
+            </View>
+          </View>
+        </Modal>
       </View>
     </>
   );
@@ -131,5 +164,45 @@ const styles = StyleSheet.create({
     width: 400,
     height: 200,
     resizeMode: "contain"
+  },
+
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.4)",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+
+  successCard: {
+    width: "85%",
+    backgroundColor: "#FFFFFF",
+    borderRadius: 25,
+    padding: 30,
+    alignItems: "center",
+    elevation: 10
+  },
+
+  iconContainer: {
+    marginBottom: 15
+  },
+
+  successTitle: {
+    fontSize: 24,
+    fontWeight: "700",
+    color: "#222",
+    marginBottom: 10
+  },
+
+  successMessage: {
+    textAlign: "center",
+    color: "#666",
+    fontSize: 14,
+    lineHeight: 22
+  },
+
+  redirectText: {
+    marginTop: 20,
+    color: "#4CAF7A",
+    fontWeight: "600"
   }
 });

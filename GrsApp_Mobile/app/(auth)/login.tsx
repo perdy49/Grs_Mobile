@@ -12,6 +12,7 @@ import { router, Stack } from "expo-router";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const [showForgotModal, setShowForgotModal] = useState(false);
 
   return (
     <>
@@ -48,7 +49,9 @@ export default function Login() {
             </TouchableOpacity>
           </View>
 
-          <Text style={styles.forgot}>Lupa kata sandi?</Text>
+          <TouchableOpacity onPress={() => setShowForgotModal(true)}>
+            <Text style={styles.forgot}>Lupa kata sandi?</Text>
+          </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.button}
@@ -64,6 +67,39 @@ export default function Login() {
             </Text>
           </Text>
         </View>
+
+        {showForgotModal && (
+          <View style={styles.modalOverlay}>
+            <View style={styles.modalCard}>
+              <Text style={styles.modalTitle}>Pulihkan Akun</Text>
+
+              <Text style={styles.modalDesc}>
+                Pilih metode pemulihan akun yang tersedia.
+              </Text>
+
+              <TouchableOpacity style={styles.methodButton}>
+                <Ionicons name="mail-outline" size={20} color="#4CAF7A" />
+                <Text style={styles.methodText}>
+                  Kirim kode verifikasi ke Gmail
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.methodButton}>
+                <Ionicons name="call-outline" size={20} color="#4CAF7A" />
+                <Text style={styles.methodText}>
+                  Verifikasi melalui Nomor Telepon
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.closeButton}
+                onPress={() => setShowForgotModal(false)}
+              >
+                <Text style={styles.closeText}>Tutup</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
       </View>
     </>
   );
@@ -95,7 +131,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
+    borderBottomColor: "#ccc"
   },
   passwordInput: { flex: 1, paddingVertical: 8 },
   forgot: { textAlign: "right", fontSize: 12, marginTop: 20, color: "#777" },
@@ -118,4 +154,65 @@ const styles = StyleSheet.create({
     height: 200,
     resizeMode: "contain"
   },
+
+  modalOverlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0,0,0,0.4)",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 20
+  },
+
+  modalCard: {
+    width: "100%",
+    backgroundColor: "#fff",
+    borderRadius: 20,
+    padding: 20
+  },
+
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: "700",
+    marginBottom: 10,
+    color: "#333"
+  },
+
+  modalDesc: {
+    fontSize: 13,
+    color: "#666",
+    marginBottom: 20
+  },
+
+  methodButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    borderWidth: 1,
+    borderColor: "#E0E0E0",
+    borderRadius: 12,
+    padding: 14,
+    marginBottom: 12
+  },
+
+  methodText: {
+    fontSize: 14,
+    color: "#333"
+  },
+
+  closeButton: {
+    marginTop: 10,
+    backgroundColor: "#4CAF7A",
+    paddingVertical: 12,
+    borderRadius: 12,
+    alignItems: "center"
+  },
+
+  closeText: {
+    color: "#fff",
+    fontWeight: "600"
+  }
 });

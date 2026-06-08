@@ -72,7 +72,8 @@ export default function ProfilePage() {
 
           <TouchableOpacity
             style={styles.addBtn}
-            onPress={() => router.push("/(auth)/login")}>
+            onPress={() => router.push("/(auth)/login")}
+          >
             <Text style={styles.addText}>Buat Informasi Baru</Text>
           </TouchableOpacity>
         </View>
@@ -99,7 +100,15 @@ export default function ProfilePage() {
           ))}
         </View>
 
-        <View style={{ height: 120 }} />
+        <TouchableOpacity
+          style={styles.logoutBtn}
+          onPress={() => router.replace("/(auth)/login")}
+        >
+          <Ionicons name="log-out-outline" size={20} color="#fff" />
+          <Text style={styles.logoutText}>Logout</Text>
+        </TouchableOpacity>
+        
+        <View style={{ height: 40 }} />
       </ScrollView>
     </View>
   );
@@ -234,5 +243,23 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 13,
     fontWeight: "500"
+  },
+
+  logoutBtn: {
+    marginHorizontal: 16,
+    marginTop: 20,
+    backgroundColor: "#E53935",
+    paddingVertical: 14,
+    borderRadius: 25,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 8
+  },
+
+  logoutText: {
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: "600"
   }
 });

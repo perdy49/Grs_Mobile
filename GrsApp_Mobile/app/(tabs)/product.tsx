@@ -74,17 +74,26 @@ export default function ProductPage() {
         {/* PRODUK LIST */}
         <View style={styles.productGrid}>
           {[...Array(6)].map((_, i) => (
-            <View key={i} style={styles.card}>
+            <TouchableOpacity
+              key={i}
+              style={styles.card}
+              onPress={() => router.push("/(function)/detail")}
+            >
               <Image
                 source={require("../../assets/images/sample-produk1.png")}
                 style={styles.cardImage}
               />
-              <Text style={styles.cardTitle}>Jeruk 1 Kg</Text>
 
-              <TouchableOpacity style={styles.buyBtn}>
+              <Text style={styles.cardTitle}>Jeruk 1 Kg</Text>
+              <Text style={styles.price}>Rp 10.000</Text>
+
+              <TouchableOpacity
+                style={styles.buyBtn}
+                onPress={() => router.push("/(function)/detail")}
+              >
                 <Text style={styles.buyText}>Beli</Text>
               </TouchableOpacity>
-            </View>
+            </TouchableOpacity>
           ))}
         </View>
       </ScrollView>
@@ -132,7 +141,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     borderRadius: 15,
     overflow: "hidden",
-    marginTop: 30,
+    marginTop: 30
   },
 
   bannerImage: {
@@ -162,7 +171,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginVertical: 10,
     marginTop: 20,
-    marginBottom:40
+    marginBottom: 40
   },
 
   dot: {
@@ -185,7 +194,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
-    paddingHorizontal: 16,
+    paddingHorizontal: 16
   },
 
   categoryItem: {
@@ -198,13 +207,13 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     marginBottom: 5,
-    borderRadius: 20,
+    borderRadius: 20
   },
 
   categoryText: {
     fontSize: 10,
     textAlign: "center",
-    color: "#4CAF50",
+    color: "#4CAF50"
   },
 
   sectionHeader: {
@@ -266,5 +275,12 @@ const styles = StyleSheet.create({
   buyText: {
     color: "#fff",
     fontSize: 12
+  },
+
+  price: {
+    marginTop: 10,
+    fontSize: 12,
+    color: "#4CAF50",
+    fontWeight: "600"
   }
 });
