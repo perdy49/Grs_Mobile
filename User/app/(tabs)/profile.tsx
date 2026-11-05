@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Image,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter, Stack } from "expo-router";
@@ -49,57 +49,58 @@ export default function ProfilePage() {
 
       {/* CONTENT */}
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* SECTION 1 */}
+        {/* DETAIL INFORMASI */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Detail Informasi</Text>
+          {/* SECTION HEADER */}
+          <View style={styles.sectionHeader}>
+            <View>
+              <Text style={styles.sectionTitle}>Detail Informasi</Text>
+              <Text style={styles.sectionSubtitle}>
+                Informasi pendidikan Anda
+              </Text>
+            </View>
 
-          {[...Array(2)].map((_, i) => (
-            <View key={i} style={styles.item}>
-              <View style={styles.itemLeft}>
-                <Ionicons name="school-outline" size={20} color="#555" />
-                <View>
-                  <Text style={styles.itemTitle}>Universitas Nusa Putra</Text>
-                  <Text style={styles.itemSub}>Teknik Informatika</Text>
+            <TouchableOpacity
+              style={styles.addBtn}
+              onPress={() => router.push("/(auth)/login")}
+            >
+              <Ionicons name="add" size={18} color="#fff" />
+              <Text style={styles.addText}>Tambah</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* INFORMATION CARD */}
+          <View style={styles.item}>
+            <View style={styles.itemLeft}>
+              <View style={styles.itemIcon}>
+                <Ionicons name="school-outline" size={23} color="#4CAF50" />
+              </View>
+
+              <View style={styles.itemInfo}>
+                <Text style={styles.itemTitle}>Universitas Nusa Putra</Text>
+
+                <Text style={styles.itemSub}>Teknik Informatika</Text>
+
+                <View style={styles.itemBadge}>
+                  <Ionicons name="checkmark-circle" size={13} color="#4CAF50" />
+                  <Text style={styles.badgeText}>Pendidikan</Text>
                 </View>
               </View>
-
-              <View style={styles.itemRight}>
-                <Ionicons name="create-outline" size={18} color="#555" />
-                <Ionicons name="trash-outline" size={18} color="#555" />
-              </View>
             </View>
-          ))}
 
-          <TouchableOpacity
-            style={styles.addBtn}
-            onPress={() => router.push("/(auth)/login")}
-          >
-            <Text style={styles.addText}>Buat Informasi Baru</Text>
-          </TouchableOpacity>
+            <View style={styles.itemRight}>
+              <TouchableOpacity style={styles.actionBtn}>
+                <Ionicons name="create-outline" size={19} color="#555" />
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.actionBtn}>
+                <Ionicons name="trash-outline" size={19} color="#E53935" />
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
 
-        {/* SECTION 2 */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Detail Informasi</Text>
-
-          {[...Array(2)].map((_, i) => (
-            <View key={i} style={styles.item}>
-              <View style={styles.itemLeft}>
-                <Ionicons name="school-outline" size={20} color="#555" />
-                <View>
-                  <Text style={styles.itemTitle}>Universitas Nusa Putra</Text>
-                  <Text style={styles.itemSub}>Teknik Informatika</Text>
-                </View>
-              </View>
-
-              <View style={styles.itemRight}>
-                <Ionicons name="create-outline" size={18} color="#555" />
-                <Ionicons name="trash-outline" size={18} color="#555" />
-              </View>
-            </View>
-          ))}
-        </View>
-
+        {/* LOGOUT */}
         <TouchableOpacity
           style={styles.logoutBtn}
           onPress={() => router.replace("/(auth)/login")}
@@ -107,7 +108,7 @@ export default function ProfilePage() {
           <Ionicons name="log-out-outline" size={20} color="#fff" />
           <Text style={styles.logoutText}>Logout</Text>
         </TouchableOpacity>
-        
+
         <View style={{ height: 40 }} />
       </ScrollView>
     </View>
@@ -117,19 +118,19 @@ export default function ProfilePage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F3F3F3"
+    backgroundColor: "#F3F3F3",
   },
 
   /* HEADER */
   header: {
     height: 170,
-    position: "relative"
+    position: "relative",
   },
 
   headerBg: {
     position: "absolute",
     width: "100%",
-    height: "100%"
+    height: "100%",
   },
 
   headerTop: {
@@ -137,24 +138,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "center",
   },
 
   headerTitle: {
     color: "#fff",
     fontSize: 20,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
 
   headerIcons: {
     flexDirection: "row",
-    gap: 14
+    gap: 14,
   },
 
   /* PROFILE */
   profileWrapper: {
     marginTop: -40,
-    paddingHorizontal: 16
+    paddingHorizontal: 16,
   },
 
   profileCard: {
@@ -166,100 +167,165 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOpacity: 0.08,
     shadowRadius: 8,
-    elevation: 4
+    elevation: 4,
   },
 
   avatar: {
     width: 60,
     height: 60,
     borderRadius: 30,
-    marginRight: 12
+    marginRight: 12,
   },
 
   name: {
     fontWeight: "bold",
-    fontSize: 14
+    fontSize: 14,
   },
 
   email: {
     fontSize: 12,
-    color: "#777"
+    color: "#777",
   },
 
-  /* SECTION */
+  /* DETAIL INFORMASI */
   section: {
-    backgroundColor: "#EDEDED",
+    backgroundColor: "#fff",
     marginHorizontal: 16,
-    marginTop: 20,
-    borderRadius: 14,
-    padding: 14
+    marginTop: 24,
+    borderRadius: 18,
+    padding: 16,
+    shadowColor: "#000",
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    elevation: 3,
+  },
+
+  sectionHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 18,
   },
 
   sectionTitle: {
-    fontSize: 12,
-    marginBottom: 10,
-    color: "#555"
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "#333",
   },
 
+  sectionSubtitle: {
+    fontSize: 11,
+    color: "#999",
+    marginTop: 4,
+  },
+
+  /* ADD BUTTON */
+  addBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#4CAF50",
+    paddingHorizontal: 13,
+    paddingVertical: 9,
+    borderRadius: 20,
+    gap: 4,
+  },
+
+  addText: {
+    color: "#fff",
+    fontSize: 12,
+    fontWeight: "600",
+  },
+
+  /* INFORMATION ITEM */
   item: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderColor: "#ddd"
+    backgroundColor: "#F8F9F8",
+    borderWidth: 1,
+    borderColor: "#EEEEEE",
+    borderRadius: 14,
+    padding: 13,
   },
 
   itemLeft: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 10
+    flex: 1,
+    gap: 12,
+  },
+
+  itemIcon: {
+    width: 46,
+    height: 46,
+    borderRadius: 13,
+    backgroundColor: "#E8F5E9",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  itemInfo: {
+    flex: 1,
   },
 
   itemTitle: {
-    fontSize: 12,
-    fontWeight: "500"
+    fontSize: 13,
+    fontWeight: "600",
+    color: "#333",
   },
 
   itemSub: {
     fontSize: 11,
-    color: "#777"
+    color: "#777",
+    marginTop: 4,
+  },
+
+  itemBadge: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    marginTop: 7,
+  },
+
+  badgeText: {
+    fontSize: 10,
+    color: "#4CAF50",
+    fontWeight: "500",
   },
 
   itemRight: {
     flexDirection: "row",
-    gap: 10
+    alignItems: "center",
+    gap: 5,
+    marginLeft: 5,
   },
 
-  addBtn: {
-    marginTop: 15,
-    backgroundColor: "#4CAF50",
-    paddingVertical: 12,
-    borderRadius: 25,
-    alignItems: "center"
+  actionBtn: {
+    width: 32,
+    height: 32,
+    borderRadius: 10,
+    backgroundColor: "#EEEEEE",
+    justifyContent: "center",
+    alignItems: "center",
   },
 
-  addText: {
-    color: "#fff",
-    fontSize: 13,
-    fontWeight: "500"
-  },
-
+  /* LOGOUT */
   logoutBtn: {
     marginHorizontal: 16,
-    marginTop: 20,
+    marginTop: 24,
     backgroundColor: "#E53935",
     paddingVertical: 14,
     borderRadius: 25,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    gap: 8
+    gap: 8,
   },
 
   logoutText: {
     color: "#fff",
     fontSize: 14,
-    fontWeight: "600"
-  }
+    fontWeight: "600",
+  },
 });
