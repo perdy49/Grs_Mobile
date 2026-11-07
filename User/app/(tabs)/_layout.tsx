@@ -7,16 +7,16 @@ export default function TabLayout() {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: true,
-        tabBarActiveTintColor: "#4CAF50"
+        tabBarActiveTintColor: "#4CAF50",
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="home"
         options={{
           title: "Home",
           tabBarIcon: ({ color }) => (
-            <Ionicons name="home" size={22} color={color} />
-          )
+            <Ionicons name="home" size={22} color={color as string} />
+          ),
         }}
       />
 
@@ -25,18 +25,18 @@ export default function TabLayout() {
         options={{
           title: "Product",
           tabBarIcon: ({ color }) => (
-            <Ionicons name="bag" size={22} color={color} />
-          )
+            <Ionicons name="bag" size={22} color={color as string} />
+          ),
         }}
       />
-      
+
       <Tabs.Screen
         name="wishlist"
         options={{
           title: "Wishlist",
           tabBarIcon: ({ color }) => (
-            <Ionicons name="cart" size={22} color={color} />
-          )
+            <Ionicons name="cart" size={22} color={color as string} />
+          ),
         }}
       />
 
@@ -45,8 +45,8 @@ export default function TabLayout() {
         options={{
           title: "Profile",
           tabBarIcon: ({ color }) => (
-            <Ionicons name="person" size={22} color={color} />
-          )
+            <Ionicons name="person" size={22} color={color as string} />
+          ),
         }}
       />
     </Tabs>
