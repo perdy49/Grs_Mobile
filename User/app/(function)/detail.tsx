@@ -7,7 +7,8 @@ import {
   TextInput
 } from "react-native";
 import { styles } from "../../styles/detail";
-import MapView, { Marker } from "react-native-maps";
+// import MapView, { Marker } from "react-native-maps";
+import MapPreview from "../../components/MapPreview";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter, Stack } from "expo-router";
 import { useState } from "react";
@@ -135,7 +136,7 @@ export default function DetailScreen() {
                     <TouchableOpacity
                       style={[
                         styles.selectCard,
-                        selectedPayment === "E-Wallet" && styles.selectedCard
+                        selectedPayment === "E-Wallet" && styles.selectedCard,
                       ]}
                       onPress={() => {
                         setSelectedPayment("E-Wallet");
@@ -157,7 +158,7 @@ export default function DetailScreen() {
                       style={[
                         styles.selectCard,
                         selectedPayment === "Transfer Bank" &&
-                          styles.selectedCard
+                          styles.selectedCard,
                       ]}
                       onPress={() => {
                         setSelectedPayment("Transfer Bank");
@@ -178,7 +179,7 @@ export default function DetailScreen() {
                     <TouchableOpacity
                       style={[
                         styles.selectCard,
-                        selectedPayment === "COD" && styles.selectedCard
+                        selectedPayment === "COD" && styles.selectedCard,
                       ]}
                       onPress={() => {
                         setSelectedPayment("COD");
@@ -208,7 +209,7 @@ export default function DetailScreen() {
                         key={wallet}
                         style={[
                           styles.selectCard,
-                          selectedWallet === wallet && styles.selectedCard
+                          selectedWallet === wallet && styles.selectedCard,
                         ]}
                         onPress={() => setSelectedWallet(wallet)}
                       >
@@ -235,7 +236,7 @@ export default function DetailScreen() {
                         key={bank}
                         style={[
                           styles.selectCard,
-                          selectedBank === bank && styles.selectedCard
+                          selectedBank === bank && styles.selectedCard,
                         ]}
                         onPress={() => setSelectedBank(bank)}
                       >
@@ -255,26 +256,21 @@ export default function DetailScreen() {
 
                 <Text style={styles.sectionTitle}>Lokasi Pengiriman</Text>
 
-                <MapView
+                <MapPreview
                   style={styles.map}
                   region={region}
-                  onRegionChangeComplete={(value) => setRegion(value)}
-                >
-                  <Marker
-                    coordinate={{
-                      latitude: region.latitude,
-                      longitude: region.longitude
-                    }}
-                    draggable
-                    onDragEnd={(e) =>
-                      setRegion({
-                        ...region,
-                        latitude: e.nativeEvent.coordinate.latitude,
-                        longitude: e.nativeEvent.coordinate.longitude
-                      })
-                    }
-                  />
-                </MapView>
+                  onRegionChangeComplete={setRegion}
+                  onMarkerDragEnd={(coordinate: {
+                    latitude: number;
+                    longitude: number;
+                  }) =>
+                    setRegion((previous) => ({
+                      ...previous,
+                      latitude: coordinate.latitude,
+                      longitude: coordinate.longitude,
+                    }))
+                  }
+                />
 
                 <TextInput
                   style={styles.addressInput}
@@ -290,13 +286,13 @@ export default function DetailScreen() {
                   "Pagi (08:00 - 12:00)",
                   "Siang (13:00 - 17:00)",
                   "Sore (18:00 - 21:00)",
-                  "Custom"
+                  "Custom",
                 ].map((item) => (
                   <TouchableOpacity
                     key={item}
                     style={[
                       styles.selectCard,
-                      selectedSchedule === item && styles.selectedCard
+                      selectedSchedule === item && styles.selectedCard,
                     ]}
                     onPress={() => setSelectedSchedule(item)}
                   >
